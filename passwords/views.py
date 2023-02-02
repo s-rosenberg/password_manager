@@ -38,7 +38,7 @@ def register_user(request:HttpRequest) -> HttpResponse:
         if form.is_valid():
             form.save()
             return redirect('../accounts/login')
-        else:
+        else: # TODO aca cualquier cosa que no sea valida me va a llevar a user already exists xdnt
             form = UserCreationForm()
             context = {
                 'error':'User already exists',
