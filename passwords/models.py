@@ -9,7 +9,7 @@ class Site(models.Model):
 class SavedPassword(models.Model):
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
-    site = models.ForeignKey(Site, on_delete=models.CASCADE) # ta raro. si elimino el site  borra la pass (no tiene sentido guardar pass no asociada a un site)
+    site = models.ForeignKey(Site, on_delete=models.PROTECT) # si elimino un site raisea error y tengo que eliminar todo las pass asociadas
     user = models.ForeignKey(User, on_delete=models.CASCADE) # si elimino el user elimina sus saved passowrds. OK
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
