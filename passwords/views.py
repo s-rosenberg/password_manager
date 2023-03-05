@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse, HttpRequest
 from django.contrib.auth.forms import UserCreationForm
-from django.views import generic
+from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.db.models.query import QuerySet
 from django import forms
@@ -60,3 +60,7 @@ def get_saved_passwords(request: HttpRequest) -> HttpResponse:
         return render(request, 'passwords/saved_passwords.html', {'passwords':saved_passwords})
     else:
         return redirect('../accounts/login')
+
+def logout_view(request: HttpRequest) -> HttpResponse:
+    logout(request)
+    return redirect('../accounts/login')
