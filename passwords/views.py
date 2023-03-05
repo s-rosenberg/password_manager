@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse, HttpRequest
 from django.contrib.auth.forms import UserCreationForm
+from django.views import generic
 from django.contrib.auth.models import User
+from django.db.models.query import QuerySet
 from django import forms
 
 from .forms import PasswordForm
@@ -48,6 +50,13 @@ def register_user(request:HttpRequest) -> HttpResponse:
     else:
         form = UserCreationForm()
         return render(request, 'registration/register.html', {'form':form})
-# def new_password(request)
-#     form = PasswordForm()
-#     return render(request, template_name='passwords/save_password.html')
+
+def get_saved_passwords_for_user(user: User) -> QuerySet[SavedPassword]:
+    return SavedPassword.objects.filter(user=user.id)
+
+def get_saved_passwords(request: HttpRequest) -> HttpResponse:
+    if request.user.is_authenticated:
+        saved_passwords = get_saved_passwords_for_user(user=request.user)
+        return render(request, 'passwords/saved_passwords.html', {'passwords':saved_passwords})
+    else:
+        return redirect('../accounts/login')
