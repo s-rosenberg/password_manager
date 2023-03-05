@@ -34,3 +34,8 @@ Crear una app de password manager usando [Django](https://www.djangoproject.com/
 - Cambiar Password
 - ~~Login?~~
 - ~~Register?~~
+
+### Modificar
+
+- Modificar views que estan por default en django.contrib.auth.urls (de esta manera tambien puedo quitar la view para logout y usar directamente la de django)
+- View de saved passwords
